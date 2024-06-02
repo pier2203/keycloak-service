@@ -29,6 +29,7 @@
           value="<#if auth.selectedCredential?has_content>${auth.selectedCredential}</#if>"
         >
         <div>
+          <p>Username or Email</p>
           <@inputPrimary.kw
             autocomplete=realm.loginWithEmailAllowed?string("email", "username")
             autofocus=true
@@ -42,6 +43,7 @@
           </@inputPrimary.kw>
         </div>
         <div>
+           <p>Password</b>
           <@inputPrimary.kw
             invalid=["username", "password"]
             message=false
@@ -54,7 +56,7 @@
         <div class="flex items-center" style="display: flex; justify-between: center; align-items: center; gap: 43px;">
           <#if realm.rememberMe && !usernameEditDisabled??>
             <@checkboxPrimary.kw checked=login.rememberMe?? name="rememberMe">
-              ${msg("rememberMe")}
+              ${msg("Remember this Device")}
             </@checkboxPrimary.kw>
           </#if>
           <#if realm.resetPasswordAllowed>
@@ -75,10 +77,10 @@
     </#if>
   <#elseif section="info">
     <#if realm.password && realm.registrationAllowed && !registrationDisabled??>
-      <div class="text-center">
-        ${msg("noAccount")}
+      <div class="pt-4" style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
+         <p>${msg("New to ClassicEval?")}</p>
         <@linkPrimary.kw href=url.registrationUrl>
-          ${msg("doRegister")}
+          ${msg("Create an account")}
         </@linkPrimary.kw>
       </div>
     </#if>

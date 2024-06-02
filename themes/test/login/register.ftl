@@ -12,30 +12,23 @@
     ${msg("registerTitle")}
   <#elseif section="form">
     <form action="${url.registrationAction}" class="m-0 space-y-4" method="post" >
+
+      <#if !realm.registrationEmailAsUsername>
+              <p>Name</p>
+              <div>
+                <@inputPrimary.kw
+                  autocomplete="username"
+                  invalid=["username"]
+                  name="username"
+                  type="text"
+                  value=(register.formData.username)!''
+                >
+                  ${msg("username")}
+                </@inputPrimary.kw>
+              </div>
+            </#if>
       <div>
-        <@inputPrimary.kw
-          autocomplete="given-name"
-          autofocus=true
-          invalid=["firstName"]
-          name="firstName"
-          type="text"
-          value=(register.formData.firstName)!''
-        >
-          ${msg("firstName")}
-        </@inputPrimary.kw>
-      </div>
-      <div>
-        <@inputPrimary.kw
-          autocomplete="family-name"
-          invalid=["lastName"]
-          name="lastName"
-          type="text"
-          value=(register.formData.lastName)!''
-        >
-          ${msg("lastName")}
-        </@inputPrimary.kw>
-      </div>
-      <div>
+         <p>Email Address</p>
         <@inputPrimary.kw
           autocomplete="email"
           invalid=["email"]
@@ -46,20 +39,9 @@
           ${msg("email")}
         </@inputPrimary.kw>
       </div>
-      <#if !realm.registrationEmailAsUsername>
-        <div>
-          <@inputPrimary.kw
-            autocomplete="username"
-            invalid=["username"]
-            name="username"
-            type="text"
-            value=(register.formData.username)!''
-          >
-            ${msg("username")}
-          </@inputPrimary.kw>
-        </div>
-      </#if>
+
       <#if passwordRequired??>
+        <p>Password</p>
         <div>
           <@inputPrimary.kw
             autocomplete="new-password"
@@ -72,6 +54,7 @@
           </@inputPrimary.kw>
         </div>
         <div>
+          <p>Confirm Password</p>
           <@inputPrimary.kw
             autocomplete="new-password"
             invalid=["password-confirm"]
