@@ -5,9 +5,9 @@ ENV KEYCLOAK_ADMIN_PASSWORD=admin
 ENV KC_HEALTH_ENABLED=true
 ENV KC_METRICS_ENABLED=true
 
-# COPY themes /opt/keycloak/themes/
+COPY themes /opt/keycloak/themes/
 
-ADD ./classic-eval-realm.json /opt/keycloak/data/import/classic-eval-realm.json
+ADD classic-eval-realm.json /opt/keycloak/data/import/classic-eval-realm.json
 RUN /opt/keycloak/bin/kc.sh import --dir=/opt/keycloak/data/import/ --override false --optimized; exit 0
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start-dev", "--import-realm"]
 
