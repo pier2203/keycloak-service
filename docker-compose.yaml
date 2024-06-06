@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  maria:
+    image: docker.io/mariadb:11.4.2
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+    command: --init-file /data/application/init.sql
+    volumes:
+      - ./init.sql:/data/application/init.sql
+    ports:
+      - 3306:3306
+  keycloak:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: on-failure
+    ports:
+      - 8080:8080
+    depends_on:
+      - maria
