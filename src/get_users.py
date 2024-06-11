@@ -1,24 +1,27 @@
-import psycopg2
+import mariadb
 import json
 
 
 def get_users():
+    print('Connecting DB')
     # Connect to your database
-    conn = psycopg2.connect(
-        dbname="your_db_name",
-        user="your_db_user",
-        password="your_db_password",
-        host="your_db_host",
-        port="your_db_port"
+    conn = mariadb.connect(
+        database="scraping2",
+        user="root",
+        password="488Pist@",
+        host="127.0.0.1",
+        port=3306
     )
+    print('Getting cursor')
     cursor = conn.cursor()
-    query = "SELECT username, email, password_hash, salt FROM users"
+    query = "SELECT username, email, password FROM users"
+    print('Query')
     cursor.execute(query)
     users = cursor.fetchall()
 
     cursor.close()
     conn.close()
-
+    print('Closed connection')
     keycloak_users = []
     for user in users:
         keycloak_user = {
@@ -28,14 +31,13 @@ def get_users():
             "credentials": [
                 {
                     "type": "password",
-                    "value": user[2],
-                    "algorithm": "pbkdf2-sha512",
-                    "salt": user[3],
-                    "hashIterations": 210000
+                    "hashedSaltedValue": user[2],
+                    "algorithm": "bcrypt",
+                    "hashIterations": 10
                 }
             ]
         }
         keycloak_users.append(keycloak_user)
-        
+    print(keycloak_users)
     with open('keycloak_users.json', 'w') as f:
         json.dump(keycloak_users, f, indent=2)

@@ -13,6 +13,9 @@ ENV KC_HOSTNAME=localhost
 #ENV KC_HTTPS_KEY_STORE_PASSWORD=a
 COPY themes /opt/keycloak/themes/
 
+# Support BCrypt algorithm for passwords (Migration from MariaDB, to be removed ASAP)
+COPY dep/keycloak-bcrypt-1.6.0.jar /opt/keycloak/providers
+
 ADD classic-eval-realm.json /opt/keycloak/data/import/classic-eval-realm.json
 RUN /opt/keycloak/bin/kc.sh import --dir=/opt/keycloak/data/import/ --override false --optimized; exit 0
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start-dev", "--import-realm"]

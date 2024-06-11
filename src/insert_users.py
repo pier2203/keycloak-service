@@ -1,13 +1,14 @@
 import requests
+import json
 
 def insert_users():
-    keycloak_url = "http://localhost:8080/auth"
+    keycloak_url = "http://localhost:8080"
     realm = "classic-eval"
     admin_username = "admin"
     admin_password = "admin"
     client_id = "admin-cli"
 
-    token_url = f"{keycloak_url}/realms/{realm}/protocol/openid-connect/token"
+    token_url = f"{keycloak_url}/realms/master/protocol/openid-connect/token"
     token_data = {
         "grant_type": "password",
         "client_id": client_id,
