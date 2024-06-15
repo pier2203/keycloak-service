@@ -5,10 +5,10 @@ ENV KEYCLOAK_ADMIN_PASSWORD="-3gyP&/OPDxR"
 ENV KC_HEALTH_ENABLED=true
 ENV KC_METRICS_ENABLED=true
 ENV KC_DB=mariadb
-ENV KC_DB_URL=jdbc:mariadb://maria/sec
+ENV KC_DB_URL=jdbc:mariadb://dbnode/sec
 ENV KC_DB_USERNAME=sec_user
 ENV KC_DB_PASSWORD=sec_user
-ENV KC_HOSTNAME=localhost
+ENV KC_HOSTNAME=classiceval.com
 ENV KC_HTTPS_CERTIFICATE_FILE=/etc/x509/https/tls.crt
 ENV KC_HTTPS_CERTIFICATE_KEY_FILE=/etc/x509/https/tls.key
 COPY themes /opt/keycloak/themes/
